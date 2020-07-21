@@ -275,9 +275,12 @@ public struct URLEncoding: ParameterEncoding {
                 let range = startIndex..<endIndex
 
                 let substring = string[range]
-
-                escaped += substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) ?? String(substring)
-
+                    
+                if let val = substring.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet) {
+                    escaped += val
+                } else {
+                    escaped += String(substring)
+                }
                 index = endIndex
             }
         }
